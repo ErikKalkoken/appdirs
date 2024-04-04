@@ -8,9 +8,17 @@ import (
 	"path/filepath"
 )
 
+func naiveTildeExpand(path string) string {
+	if path[0] == '~' {
+		return filepath.Join(homeDir(), path[1:])
+	}
+
+	return path
+}
+
 func userDataDir(name, author, version string, roaming bool) (path string) {
 	if path = os.Getenv("XDG_DATA_HOME"); path == "" {
-		path = ExpandUser("~/.local/share")
+		path = filepath.Join(homeDir(), ".local", "share")
 	}
 
 	if name != "" {
@@ -30,7 +38,7 @@ func SiteDataDirs(name, author, version string) (paths []string) {
 	}
 
 	for i, path := range paths {
-		path = ExpandUser(path)
+		path = naiveTildeExpand(path)
 
 		if name != "" {
 			path = filepath.Join(path, name, version)
@@ -48,7 +56,7 @@ func siteDataDir(name, author, version string) (path string) {
 
 func userConfigDir(name, author, version string, roaming bool) (path string) {
 	if path = os.Getenv("XDG_CONFIG_HOME"); path == "" {
-		path = ExpandUser("~/.config")
+		path = filepath.Join(homeDir(), ".config")
 	}
 
 	if name != "" {
@@ -68,7 +76,7 @@ func SiteConfigDirs(name, author, version string) (paths []string) {
 	}
 
 	for i, path := range paths {
-		path = ExpandUser(path)
+		path = naiveTildeExpand(path)
 
 		if name != "" {
 			path = filepath.Join(path, name, version)
@@ -86,7 +94,7 @@ func siteConfigDir(name, author, version string) (path string) {
 
 func userCacheDir(name, author, version string, opinion bool) (path string) {
 	if path = os.Getenv("XDG_CACHE_HOME"); path == "" {
-		path = ExpandUser("~/.cache")
+		path = filepath.Join(homeDir(), ".cache")
 	}
 
 	if name != "" {

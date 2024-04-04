@@ -68,13 +68,8 @@ func (app *App) UserLog() string {
 	return UserLogDir(app.Name, app.Author, app.Version, app.Opinion)
 }
 
-// ExpandUser is a helper function that expands the first '~' it finds in the
-// passed path with the home directory of the current user.
-//
-// Note: This only works on environments similar to bash.
-func ExpandUser(path string) string {
-	if u, err := user.Current(); err == nil {
-		return strings.Replace(path, "~", u.HomeDir, -1)
-	}
-	return path
+// homeDir for the current user
+func homeDir() string {
+	user, _ := user.Current()
+	return user.HomeDir
 }
