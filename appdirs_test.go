@@ -43,8 +43,15 @@ func getExpectations() map[string]string {
 	return expectations[runtime.GOOS]
 }
 
+func testApp() *App {
+	app := New("Testing")
+	app.Author = "Tester"
+	app.Version = "1.0.0"
+	return app
+}
+
 func TestUserData(t *testing.T) {
-	app := New("Testing", "Tester", "1.0.0")
+	app := testApp()
 	expected := getExpectations()
 
 	if r := app.UserData(); r != expected["UserData"] {
@@ -53,7 +60,7 @@ func TestUserData(t *testing.T) {
 }
 
 func TestSiteData(t *testing.T) {
-	app := New("Testing", "Tester", "1.0.0")
+	app := testApp()
 	expected := getExpectations()
 
 	if r := app.SiteData(); r != expected["SiteData"] {
@@ -62,7 +69,7 @@ func TestSiteData(t *testing.T) {
 }
 
 func TestSiteConfig(t *testing.T) {
-	app := New("Testing", "Tester", "1.0.0")
+	app := testApp()
 	expected := getExpectations()
 
 	if r := app.SiteConfig(); r != expected["SiteConfig"] {
@@ -71,7 +78,7 @@ func TestSiteConfig(t *testing.T) {
 }
 
 func TestUserCache(t *testing.T) {
-	app := New("Testing", "Tester", "1.0.0")
+	app := testApp()
 	expected := getExpectations()
 
 	if r := app.UserCache(); r != expected["UserCache"] {
@@ -80,7 +87,7 @@ func TestUserCache(t *testing.T) {
 }
 
 func TestUserConfig(t *testing.T) {
-	app := New("Testing", "Tester", "1.0.0")
+	app := testApp()
 	expected := getExpectations()
 
 	if r := app.UserConfig(); r != expected["UserConfig"] {
@@ -89,7 +96,7 @@ func TestUserConfig(t *testing.T) {
 }
 
 func TestUserLog(t *testing.T) {
-	app := New("Testing", "Tester", "1.0.0")
+	app := testApp()
 	expected := getExpectations()
 
 	if r := app.UserLog(); r != expected["UserLog"] {

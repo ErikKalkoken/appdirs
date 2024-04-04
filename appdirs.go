@@ -1,11 +1,8 @@
-// A port of the excellent python module `appdirs`.
-// See https://github.com/ActiveState/appdirs for the python version.
+// A port of the excellent python module `platformdirs`.
+// See https://github.com/platformdirs/platformdirs for the python version.
 package appdirs
 
-import (
-	"os/user"
-	"strings"
-)
+import "os/user"
 
 // App is a helper type to create easy access across your program to the appdirs
 // functions.
@@ -24,15 +21,16 @@ type App struct {
 // New returns a new App helper that has various methods for receiving
 // relevant directories for your application.
 //
-// The following defaults are used for the two fields not settable by New:
-// Roaming: false, Opinion: true
+// The following defaults are used for the fields not settable by New:
+// Author: "", Version: "", Roaming: false, Opinion: true
 //
-// If you want to set these, create your own App struct by the usual means.
-func New(name, author, version string) *App {
+// If you want to set these, create your own App struct by the usual means or
+// modify the returned value accordingly.
+func New(name string) *App {
 	return &App{
 		Name:    name,
-		Author:  author,
-		Version: version,
+		Author:  "",
+		Version: "",
 		Roaming: false,
 		Opinion: true,
 	}
