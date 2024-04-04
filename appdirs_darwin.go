@@ -5,7 +5,7 @@ import (
 )
 
 func userDataDir(name, author, version string, roaming bool) (path string) {
-	path = ExpandUser("~/Library/Application Support")
+	path = filepath.Join(homeDir(), "Library", "Application Support")
 
 	if name != "" {
 		path = filepath.Join(path, name)
@@ -14,11 +14,12 @@ func userDataDir(name, author, version string, roaming bool) (path string) {
 	if name != "" && version != "" {
 		path = filepath.Join(path, version)
 	}
+
 	return path
 }
 
 func siteDataDir(name, author, version string) (path string) {
-	path = ExpandUser("/Library/Application Support")
+	path = "/Library/Application Support"
 
 	if name != "" {
 		path = filepath.Join(path, name)
@@ -27,6 +28,7 @@ func siteDataDir(name, author, version string) (path string) {
 	if name != "" && version != "" {
 		path = filepath.Join(path, version)
 	}
+
 	return path
 }
 
@@ -39,7 +41,7 @@ func siteConfigDir(name, author, version string) (path string) {
 }
 
 func userCacheDir(name, author, version string, opinion bool) (path string) {
-	path = ExpandUser("~/Library/Caches")
+	path = filepath.Join(homeDir(), "Library", "Caches")
 
 	if name != "" {
 		path = filepath.Join(path, name)
@@ -48,16 +50,16 @@ func userCacheDir(name, author, version string, opinion bool) (path string) {
 	if name != "" && version != "" {
 		path = filepath.Join(path, version)
 	}
+
 	return path
 }
 
 func userLogDir(name, author, version string, opinion bool) (path string) {
-	path = ExpandUser("~/Library/Logs")
-
-	path = filepath.Join(path, name)
+	path = filepath.Join(homeDir(), "Library", "Logs", name)
 
 	if name != "" && version != "" {
 		path = filepath.Join(path, version)
 	}
+
 	return path
 }
